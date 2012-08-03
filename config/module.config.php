@@ -1,13 +1,20 @@
 <?php
 return array(
+    'service_manager' => array(
+        'aliases' => array(
+            'speckaddress_db_adapter' => 'Zend\Db\Adapter\Adapter'
+        ),
+    ),
+
     'controllers' => array(
         'invokables' => array(
             'speckaddress' => 'SpeckAddress\Controller\AddressController',
         ),
     ),
+
     'router' => array(
         'routes' => array(
-            'speckaddress' => array(
+            'address' => array(
                 'type'    => 'Literal',
                 'options' => array(
                     // Change this to something specific to your module
@@ -25,15 +32,13 @@ return array(
                     // as you solidify the routes for your module, however,
                     // you may want to remove it and replace it with more
                     // specific routes.
-                    'default' => array(
-                        'type'    => 'Segment',
+                    'add' => array(
+                        'type' => 'Literal',
                         'options' => array(
-                            'route'    => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
+                            'route' => '/add',
                             'defaults' => array(
+                                'controller' => 'speckaddress',
+                                'action' => 'add'
                             ),
                         ),
                     ),
@@ -41,6 +46,7 @@ return array(
             ),
         ),
     ),
+
     'view_manager' => array(
         'template_path_stack' => array(
             'SpeckAddress' => __DIR__ . '/../view',

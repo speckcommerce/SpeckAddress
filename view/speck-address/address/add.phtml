@@ -1,0 +1,15 @@
+<?php
+
+$form = $this->form;
+$form->prepare();
+$form->setAttribute('method', 'post');
+
+?>
+<?= $this->form()->openTag($form) ?>
+
+<?php foreach ($form->getElements() as $el) : ?>
+<?php echo $this->formLabel($el) . $this->formElement($el) . $this->formElementErrors($el); ?>
+<?php endforeach; ?>
+<br />
+<input type="submit" value="Submit" />
+<?= $this->form()->closeTag() ?>

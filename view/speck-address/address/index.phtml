@@ -1,3 +1,27 @@
-<strong>Module:</strong>        SpeckAddress &raquo;
-<strong>Controller:</strong>    Address &raquo;
-<strong>Action:</strong>        index
+<?php foreach ($this->addresses as $address) : ?>
+
+<?php
+
+$params = http_build_query(array(
+    'markers' => '|' . $address->getStreetAddress() . ' ' . $address->getCity() . ', ' . $address->getProvince(),
+    'sensor' => 'false',
+    'size' => '150x150'
+));
+
+$imgurl = "http://maps.googleapis.com/maps/api/staticmap?" . $params;
+
+?>
+
+<div style="float: left; margin-right: 10px;">
+    <img src="<?=$imgurl?>" />
+</div>
+
+<p><em><?=$address->getName()?></em><br />
+<?=$address->getStreetAddress()?><br />
+<?=$address->getCity()?>, <?=$address->getProvince()?> <?=$address->getPostalCode()?><br />
+<?=$address->getCountry()?></p>
+
+<p style="clear: both"></p>
+
+<?php var_dump($address); ?>
+<?php endforeach; ?>

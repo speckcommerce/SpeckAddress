@@ -1,1 +1,3 @@
-Sample, skeleton module for use with the ZF2 MVC layer.
+Depends on ZF-Commons/ZfcBase
+
+Clone of Google Wallet's address book
