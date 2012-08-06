@@ -8,8 +8,25 @@ $form->setAttribute('method', 'post');
 <?= $this->form()->openTag($form) ?>
 
 <?php foreach ($form->getElements() as $el) : ?>
-<?php echo $this->formLabel($el) . $this->formElement($el) . $this->formElementErrors($el); ?>
+<?php if ($el->getAttribute('name') === 'country') : ?>
+    <?php $el->setAttribute('class', 'autocomplete'); ?>
+    <?php echo $this->formLabel($el) . $this->speckSelect($el) . $this->formElementErrors($el); ?>
+<?php else: ?>
+    <?php echo $this->formLabel($el) . $this->formElement($el) . $this->formElementErrors($el); ?>
+<?php endif; ?>
 <?php endforeach; ?>
 <br />
 <input type="submit" value="Submit" />
 <?= $this->form()->closeTag() ?>
+
+<script type="text/javascript">
+(function() {
+    var jQuery = $;
+    $('.autocomplete').selectToAutocomplete({
+        'relevancy-sorting': true,
+        'relevancy-sorting-booster-attr': 'weight',
+        'alternative-spellings': true,
+        'alternative-spellings-attr': 'alt-spelling'
+    });
+})();
+</script>

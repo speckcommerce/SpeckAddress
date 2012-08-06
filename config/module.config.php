@@ -1,5 +1,25 @@
 <?php
 return array(
+
+    'speckaddress' => array(
+        'weighted_country_codes' => array(
+            // higher weighted country codes will get a relevance multiplier for
+            // the autocomplete plugin
+            //
+            // example:
+            //'US' => 10,
+            //'GB' => 10,
+            //'DE' => 10,
+        ),
+
+        'alternate_spellings' => array(
+            // some countries have various unofficial names and spellings
+            // values are space-delimited
+            //'US' => 'US USA United States of America',
+            //'GB' => 'England Great Britain'
+        ),
+    ),
+
     'service_manager' => array(
         'aliases' => array(
             'speckaddress_db_adapter' => 'Zend\Db\Adapter\Adapter'

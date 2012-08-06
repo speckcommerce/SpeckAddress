@@ -8,6 +8,7 @@ use Zend\Stdlib\Hydrator\ClassMethods;
 class Address
 {
     protected $addressMapper;
+    protected $options;
 
     public function create($address)
     {
@@ -37,6 +38,17 @@ class Address
     public function setAddressMapper($addressMapper)
     {
         $this->addressMapper = $addressMapper;
+        return $this;
+    }
+
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    public function setOptions($options)
+    {
+        $this->options = $options;
         return $this;
     }
 }

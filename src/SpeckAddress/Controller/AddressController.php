@@ -8,6 +8,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 class AddressController extends AbstractActionController
 {
     protected $addressService;
+    protected $options;
 
     public function indexAction()
     {
@@ -55,6 +56,21 @@ class AddressController extends AbstractActionController
     public function setAddressService($addressService)
     {
         $this->addressService = $addressService;
+        return $this;
+    }
+
+    public function getOptions()
+    {
+        if (!isset($this->addressService)) {
+            $this->options = $this->getServiceLocator()->get('SpeckAddress\Options\ModuleOptions');
+        }
+
+        return $this->options;
+    }
+
+    public function setOptions($options)
+    {
+        $this->options = $options;
         return $this;
     }
 }

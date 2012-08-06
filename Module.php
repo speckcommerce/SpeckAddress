@@ -14,14 +14,25 @@ class Module implements AutoloaderProviderInterface
                 'SpeckAddress\Form\Address' => function($sm) {
                     $form = new Form\Address;
                     $form->setAddressService($sm->get('SpeckAddress\Service\Address'));
-                    $form->init();
+
+                    $options = $sm->get('SpeckAddress\Options\ModuleOptions');
+                    $form->init($options);
+
                     return $form;
                 },
 
                 'SpeckAddress\Service\Address' => function($sm) {
                     $service = new Service\Address;
                     $service->setAddressMapper($sm->get('SpeckAddress\Mapper\AddressMapper'));
+                    $service->setOptions($sm->get('SpeckAddress\Options\ModuleOptions'));
+
                     return $service;
+                },
+
+                'SpeckAddress\Options\ModuleOptions' => function($sm) {
+                    $config = $sm->get('Configuration');
+                    $moduleConfig = isset($config['speckaddress']) ? $config['speckaddress'] : array();
+                    return new Options\ModuleOptions($moduleConfig);
                 },
 
                 'SpeckAddress\Mapper\AddressMapper' => function($sm) {
@@ -36,6 +47,15 @@ class Module implements AutoloaderProviderInterface
                     $filter->init();
                     return $filter;
                 },
+            ),
+        );
+    }
+
+    public function getViewHelperConfig()
+    {
+        return array(
+            'invokables' => array(
+                'speckSelect' => 'SpeckAddress\Form\View\Helper\FormSelect',
             ),
         );
     }

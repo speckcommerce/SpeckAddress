@@ -8,7 +8,7 @@ class Address extends Form
 {
     protected $addressService;
 
-    public function init()
+    public function init($moduleOptions)
     {
         parent::__construct();
 
@@ -69,18 +69,27 @@ class Address extends Form
             ),
             'attributes' => array(
                 'type' => 'select',
-                'options' => $this->getCountryOptions(),
+                'options' => $this->getCountryOptions($moduleOptions),
             ),
         ));
     }
 
-    public function getCountryOptions()
+    public function getCountryOptions($moduleOptions = array())
     {
         $countries = $this->getAddressService()->getCountryList();
 
+        $weights = $moduleOptions->getWeightedCountryCodes();
+        $spelling = $moduleOptions->getAlternateSpellings();
+
         $result = array();
+        $result[""] = "";
         foreach ($countries as $c) {
-            $result[$c['country_code']] = utf8_encode($c['country']);
+            $result[] = array(
+                'label' => utf8_encode($c['country']),
+                'value' => $c['country_code'],
+                'weight' => isset($weights[$c['country_code']]) ? $weights[$c['country_code']] : 1,
+                'alt-spelling' => isset($spelling[$c['country_code']]) ? $spelling[$c['country_code']] : '',
+            );
         }
 
         return $result;
