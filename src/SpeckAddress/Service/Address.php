@@ -3,12 +3,22 @@
 namespace SpeckAddress\Service;
 
 use SpeckAddress\Entity\Address as AddressEntity;
+use SpeckAddress\Service\AddressEvent;
+
+use Zend\EventManager\EventManager;
+use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\EventManagerAwareInterface;
 use Zend\Stdlib\Hydrator\ClassMethods;
 
-class Address
+class Address implements EventManagerAwareInterface
 {
     protected $addressMapper;
     protected $options;
+
+    public function __construct()
+    {
+        $this->setEventManager(new EventManager());
+    }
 
     public function create($address)
     {
@@ -18,6 +28,9 @@ class Address
         }
 
         $this->addressMapper->persist($address);
+
+        $events = $this->getEventManager();
+        $events->trigger(AddressEvent::EVENT_ADD_ADDRESS_POST, $this, array('address' => $address));
     }
 
     public function getAddresses()
@@ -49,6 +62,25 @@ class Address
     public function setOptions($options)
     {
         $this->options = $options;
+        return $this;
+    }
+
+    public function getEventManager()
+    {
+        return $this->eventManager;
+    }
+
+    public function setEventManager(EventManagerInterface $eventManager)
+    {
+        $eventManager->setIdentifiers(
+            __CLASS__,
+            get_called_class(),
+            'speckaddress'
+        );
+
+        $eventManager->setEventClass('SpeckAddress\Service\AddressEvent');
+
+        $this->eventManager = $eventManager;
         return $this;
     }
 }
