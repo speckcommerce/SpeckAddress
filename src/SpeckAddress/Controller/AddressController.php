@@ -37,10 +37,52 @@ class AddressController extends AbstractActionController
         return $this->redirect()->toRoute('address');
     }
 
+    public function editAction()
+    {
+        $addressId = $this->getRequest()->getQuery()->get('id');
+        $form = $this->getEditForm($addressId);
+
+        $prg = $this->prg('/address/edit?id=' . $addressId, true);
+
+        if ($prg instanceof Response) {
+            return $this->redirect()->toRoute('address/edit/query', array('id' => $addressId));
+        } else if ($prg === false) {
+            return array('form' => $form);
+        }
+
+        $form->setData($prg);
+
+        if (!$form->isValid()) {
+            return array('form' => $form);
+        }
+
+        $this->getAddressService()->update($prg);
+        return $this->redirect()->toRoute('address');
+    }
+
+    public function deleteAction()
+    {
+        $addressId = $this->getRequest()->getQuery()->get('id');
+
+        $this->getAddressService()->delete($addressId);
+        return $this->redirect()->toRoute('address');
+    }
+
     public function getAddForm()
     {
         $form = $this->getServiceLocator()->get('SpeckAddress\Form\Address');
         $form->setInputFilter($this->getServiceLocator()->get('SpeckAddress\Form\AddressFilter'));
+        return $form;
+    }
+
+    public function getEditForm($id)
+    {
+        $form = $this->getServiceLocator()->get('SpeckAddress\Form\EditAddress');
+        $form->setInputFilter($this->getServiceLocator()->get('SpeckAddress\Form\AddressFilter'));
+
+        $addressService = $this->getAddressService();
+        $form->setAddress($addressService->findById($id));
+
         return $form;
     }
 

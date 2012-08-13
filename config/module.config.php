@@ -58,7 +58,39 @@ return array(
                             'route' => '/add',
                             'defaults' => array(
                                 'controller' => 'speckaddress',
-                                'action' => 'add'
+                                'action'     => 'add'
+                            ),
+                        ),
+                    ),
+                    'edit' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/edit',
+                            'defaults' => array(
+                                'controller' => 'speckaddress',
+                                'action'     => 'edit',
+                            ),
+                        ),
+                        'may_terminate' => false,
+                        'child_routes' => array(
+                            'query' => array(
+                                'type' => 'Query',
+                            ),
+                        ),
+                    ),
+                    'delete' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/delete',
+                            'defaults' => array(
+                                'controller' => 'speckaddress',
+                                'action'     => 'delete',
+                            ),
+                        ),
+                        'may_terminate' => false,
+                        'child_routes' => array(
+                            'query' => array(
+                                'type' => 'Query',
                             ),
                         ),
                     ),

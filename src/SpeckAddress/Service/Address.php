@@ -20,6 +20,11 @@ class Address implements EventManagerAwareInterface
         $this->setEventManager(new EventManager());
     }
 
+    public function findById($id)
+    {
+        return $this->addressMapper->findById($id);
+    }
+
     public function create($address)
     {
         if (is_array($address)) {
@@ -31,6 +36,25 @@ class Address implements EventManagerAwareInterface
 
         $events = $this->getEventManager();
         $events->trigger(AddressEvent::EVENT_ADD_ADDRESS_POST, $this, array('address' => $address));
+    }
+
+    public function update($address)
+    {
+        if (is_array($address)) {
+            $hydrator = new ClassMethods;
+            $address = $hydrator->hydrate($address, new AddressEntity);
+        }
+
+        $this->addressMapper->persist($address);
+    }
+
+    public function delete($address)
+    {
+        if ($address instanceof AddressEntity) {
+            $address = $address->getAddressId();
+        }
+
+        $this->addressMapper->delete($address);
     }
 
     public function getAddresses()

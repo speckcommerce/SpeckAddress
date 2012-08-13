@@ -21,6 +21,16 @@ class Module implements AutoloaderProviderInterface
                     return $form;
                 },
 
+                'SpeckAddress\Form\EditAddress' => function($sm) {
+                    $form = new Form\EditAddress;
+                    $form->setAddressService($sm->get('SpeckAddress\Service\Address'));
+
+                    $options = $sm->get('SpeckAddress\Options\ModuleOptions');
+                    $form->init($options);
+
+                    return $form;
+                },
+
                 'SpeckAddress\Service\Address' => function($sm) {
                     $service = new Service\Address;
                     $service->setAddressMapper($sm->get('SpeckAddress\Mapper\AddressMapper'));
