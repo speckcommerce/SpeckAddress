@@ -1,6 +1,10 @@
-<?php foreach ($this->addresses as $address) : ?>
-
 <?php
+
+$editRoute = $this->editRoute ?: 'address/edit/query';
+$deleteRoute = $this->deleteRoute ?: 'address/delete/query';
+$addRoute = $this->addRoute ?: 'address/add';
+
+foreach ($this->addresses as $address) :
 
 $params = http_build_query(array(
     'markers' => '|' . $address->getStreetAddress() . ' ' . $address->getCity() . ', ' . $address->getProvince(),
@@ -19,9 +23,9 @@ $imgurl = "http://maps.googleapis.com/maps/api/staticmap?" . $params;
 <?=$address->getStreetAddress()?><br />
 <?=$address->getCity()?>, <?=$address->getProvince()?> <?=$address->getPostalCode()?><br />
 <?=$address->getCountry()?></p>
-<?php $editUrl = $this->url('address/edit/query', array('id' => $address->getAddressId())); ?>
-<?php $deleteUrl = $this->url('address/delete/query', array('id' => $address->getAddressId())); ?>
+<?php $editUrl = $this->url($editRoute, array('id' => $address->getAddressId())); ?>
+<?php $deleteUrl = $this->url($deleteRoute, array('id' => $address->getAddressId())); ?>
 <a href="<?=$editUrl?>">Edit</a> &middot; <a href="<?=$deleteUrl?>">Delete</a>
 <p style="clear: both"></p>
 <?php endforeach; ?>
-<a href="<?=$this->url('address/add')?>">Add Address</a>
+<a href="<?=$this->url($addRoute)?>">Add Address</a>
