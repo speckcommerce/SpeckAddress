@@ -4,6 +4,27 @@ $editRoute = $this->editRoute ?: 'address/edit/query';
 $deleteRoute = $this->deleteRoute ?: 'address/delete/query';
 $addRoute = $this->addRoute ?: 'address/add';
 
+?>
+
+<?php if ($this->statuses['addr-add'] === true) : ?>
+<div class="alert alert-success">Successfully added address.</div>
+<?php elseif ($this->statuses['addr-add'] === false) : ?>
+<div class="alert alert-error">Error while adding address.</div>
+<?php endif; ?>
+
+<?php if ($this->statuses['addr-edit'] === true) : ?>
+<div class="alert alert-success">Successfully modified address.</div>
+<?php elseif ($this->statuses['addr-edit'] === false) : ?>
+<div class="alert alert-error">Error while saving address.</div>
+<?php endif; ?>
+
+<?php if ($this->statuses['addr-delete'] === true) : ?>
+<div class="alert alert-success">Successfully deleted address.</div>
+<?php elseif ($this->statuses['addr-delete'] === false) : ?>
+<div class="alert alert-error">Error while deleting address.</div>
+<?php endif; ?>
+
+<?php
 foreach ($this->addresses as $address) :
 
 $params = http_build_query(array(
@@ -15,7 +36,6 @@ $params = http_build_query(array(
 $imgurl = "http://maps.googleapis.com/maps/api/staticmap?" . $params;
 
 ?>
-
 <div style="float: left; margin-right: 10px;">
     <img src="<?=$imgurl?>" />
 </div>
