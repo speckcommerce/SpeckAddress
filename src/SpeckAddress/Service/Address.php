@@ -32,10 +32,11 @@ class Address implements EventManagerAwareInterface
             $address = $hydrator->hydrate($address, new AddressEntity);
         }
 
-        $this->addressMapper->persist($address);
+        $address = $this->addressMapper->persist($address);
 
         $events = $this->getEventManager();
         $events->trigger(AddressEvent::EVENT_ADD_ADDRESS_POST, $this, array('address' => $address));
+        return $address;
     }
 
     public function update($address)
