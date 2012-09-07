@@ -32,7 +32,7 @@ class AddressMapper extends AbstractDbMapper
         $where = new Where;
         $where->equalTo('address_id', $id);
 
-        $result = $this->selectWith($select->where($where))->current();
+        $result = $this->select($select->where($where))->current();
         return $result;
     }
 
@@ -41,7 +41,7 @@ class AddressMapper extends AbstractDbMapper
         $select = new Select;
         $select->from('address');
 
-        $resultSet = $this->selectWith($select);
+        $resultSet = $this->select($select);
         return $resultSet;
     }
 
@@ -82,7 +82,7 @@ class AddressMapper extends AbstractDbMapper
         $select = new Select;
         $select->from('country_codes');
 
-        $resultSet = $this->selectWith($select, new ArrayObject, new ArraySerializable);
+        $resultSet = $this->select($select, new ArrayObject, new ArraySerializable);
         return $resultSet;
     }
 }
