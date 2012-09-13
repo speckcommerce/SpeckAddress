@@ -14,61 +14,51 @@ class Address extends Form
 
         $this->add(array(
             'name' => 'name',
+            'type' => 'Zend\Form\Element\Text',
             'options' => array(
                 'label' => 'Address Label'
-            ),
-            'attributes' => array(
-                'type' => 'text'
             ),
         ));
 
         $this->add(array(
             'name' => 'street_address',
+            'type' => 'Zend\Form\Element\Textarea',
             'options' => array(
                 'label' => 'Street Address'
-            ),
-            'attributes' => array(
-                'type' => 'textarea'
             ),
         ));
 
         $this->add(array(
             'name' => 'city',
+            'type' => 'Zend\Form\Element\Text',
             'options' => array(
                 'label' => 'City'
-            ),
-            'attributes' => array(
-                'type' => 'text'
             ),
         ));
 
         $this->add(array(
             'name' => 'province',
+            'type' => 'Zend\Form\Element\Text',
             'options' => array(
                 'label' => 'State / Province'
-            ),
-            'attributes' => array(
-                'type' => 'text'
             ),
         ));
 
         $this->add(array(
             'name' => 'postal_code',
+            'type' => 'Zend\Form\Element\Text',
             'options' => array(
                 'label' => 'Postal Code',
-            ),
-            'attributes' => array(
-                'type' => 'text'
             ),
         ));
 
         $this->add(array(
             'name' => 'country',
+            'type' => 'Zend\Form\Element\Select',
             'options' => array(
                 'label' => 'Country',
             ),
             'attributes' => array(
-                'type' => 'select',
                 'options' => $this->getCountryOptions($moduleOptions),
             ),
         ));

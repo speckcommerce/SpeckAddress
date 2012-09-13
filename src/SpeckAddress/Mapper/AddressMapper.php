@@ -60,7 +60,7 @@ class AddressMapper extends AbstractDbMapper
         return $address;
     }
 
-    public function delete($address)
+    public function deleteAddress($address)
     {
         $adapter = $this->getDbAdapter();
         $statement = $adapter->createStatement();

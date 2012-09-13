@@ -55,7 +55,7 @@ class Address implements EventManagerAwareInterface
             $address = $address->getAddressId();
         }
 
-        $this->addressMapper->delete($address);
+        $this->addressMapper->deleteAddress($address);
     }
 
     public function getAddresses()

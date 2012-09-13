@@ -10,6 +10,11 @@ class Module implements AutoloaderProviderInterface
     public function getServiceConfig()
     {
         return array(
+            'shared' => array(
+                'SpeckAddress\Form\Address'       => false,
+                'SpeckAddress\Form\EditAddress'   => false,
+                'SpeckAddress\Form\AddressFilter' => false,
+            ),
             'factories' => array(
                 'SpeckAddress\Form\Address' => function($sm) {
                     $form = new Form\Address;
