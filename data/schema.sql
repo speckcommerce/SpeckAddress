@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `country_codes` (
   `country_code` char(2) NOT NULL COMMENT 'ISO-3166 2-char code',
   `country` varchar(150) NOT NULL,
   PRIMARY KEY (`country_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `address` (
   `address_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `address` (
   `country` char(2) DEFAULT NULL,
   PRIMARY KEY (`address_id`),
   KEY `country` (`country`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `address`
   ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`country`) REFERENCES `country_codes` (`country_code`) ON DELETE NO ACTION ON UPDATE NO ACTION;
