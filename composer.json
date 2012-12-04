@@ -1,0 +1,21 @@
+{
+    "name": "speckcommerce/speck-address",
+    "description": "",
+    "type": "library",
+    "keywords": [
+        "zf2"
+    ],
+    "homepage": "http://github.com/speckcommerce/SpeckAddress",
+    "authors": [
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-0": {
+            "SpeckAddress": "src/"
+        },
+        "classmap": [
+            "./"
+        ]
+    }
+}   
