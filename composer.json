@@ -3,19 +3,23 @@
     "description": "",
     "type": "library",
     "keywords": [
-        "zf2"
+        "zf2",
+        "speckcommerce"
     ],
     "homepage": "http://github.com/speckcommerce/SpeckAddress",
     "authors": [
     ],
     "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.*",
+        "zf-commons/zfc-base": "dev-master"
     },
     "autoload": {
         "psr-0": {
             "SpeckAddress": "src/"
         },
         "classmap": [
-            "./"
+            "./Module.php"
         ]
     }
-}   
+}
