@@ -8,9 +8,8 @@ use Zend\Stdlib\Hydrator\ClassMethods;
 
 class EditAddress extends Address
 {
-    public function __construct()
+    public function init()
     {
-        parent::__construct();
         $this->add(array(
             'name' => 'address_id',
             'attributes' => array(

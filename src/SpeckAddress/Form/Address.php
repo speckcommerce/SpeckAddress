@@ -10,10 +10,9 @@ class Address extends Form
     protected $addressService;
     protected $moduleOptions;
 
-    public function __construct()
-    {
-        parent::__construct();
 
+    public function init()
+    {
         $this->add(array(
             'name' => 'name',
             'type' => 'Zend\Form\Element\Text',
@@ -53,10 +52,7 @@ class Address extends Form
                 'label' => 'Postal Code',
             ),
         ));
-    }
 
-    public function init()
-    {
         $this->add(array(
             'name' => 'country',
             'type' => 'Zend\Form\Element\Select',
