@@ -8,8 +8,9 @@ use SpeckAddress\Options\ModuleOptions;
 class Address extends Form
 {
     protected $addressService;
+    protected $moduleOptions;
 
-    public function init(ModuleOptions $moduleOptions = null)
+    public function __construct()
     {
         parent::__construct();
 
@@ -52,7 +53,10 @@ class Address extends Form
                 'label' => 'Postal Code',
             ),
         ));
+    }
 
+    public function init()
+    {
         $this->add(array(
             'name' => 'country',
             'type' => 'Zend\Form\Element\Select',
@@ -60,15 +64,16 @@ class Address extends Form
                 'label' => 'Country',
             ),
             'attributes' => array(
-                'options' => $this->getCountryOptions($moduleOptions),
+                'options' => $this->getCountryOptions(),
             ),
         ));
     }
 
-    public function getCountryOptions(ModuleOptions $moduleOptions = null)
+    public function getCountryOptions()
     {
         $countries = $this->getAddressService()->getCountryList();
 
+        $moduleOptions = $this->getModuleOptions();
         $weights = $moduleOptions->getWeightedCountryCodes();
         $spelling = $moduleOptions->getAlternateSpellings();
 
@@ -94,6 +99,24 @@ class Address extends Form
     public function setAddressService($addressService)
     {
         $this->addressService = $addressService;
+        return $this;
+    }
+
+    /**
+     * @return moduleOptions
+     */
+    public function getModuleOptions()
+    {
+        return $this->moduleOptions;
+    }
+
+    /**
+     * @param $moduleOptions
+     * @return self
+     */
+    public function setModuleOptions($moduleOptions)
+    {
+        $this->moduleOptions = $moduleOptions;
         return $this;
     }
 }

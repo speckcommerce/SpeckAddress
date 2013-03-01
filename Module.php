@@ -21,7 +21,7 @@ class Module implements AutoloaderProviderInterface
                     $form->setAddressService($sm->get('SpeckAddress\Service\Address'));
 
                     $options = $sm->get('SpeckAddress\Options\ModuleOptions');
-                    $form->init($options);
+                    $form->setModuleOptions($options);
 
                     return $form;
                 },
@@ -31,7 +31,7 @@ class Module implements AutoloaderProviderInterface
                     $form->setAddressService($sm->get('SpeckAddress\Service\Address'));
 
                     $options = $sm->get('SpeckAddress\Options\ModuleOptions');
-                    $form->init($options);
+                    $form->setModuleOptions($options);
 
                     return $form;
                 },
