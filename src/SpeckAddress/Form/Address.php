@@ -8,7 +8,7 @@ class Address extends Form
 {
     protected $addressService;
 
-    public function init($moduleOptions)
+    public function init($moduleOptions = null)
     {
         parent::__construct();
 

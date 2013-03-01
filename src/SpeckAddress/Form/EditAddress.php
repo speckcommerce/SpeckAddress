@@ -7,7 +7,7 @@ use Zend\Stdlib\Hydrator\ClassMethods;
 
 class EditAddress extends Address
 {
-    public function init($moduleOptions)
+    public function init($moduleOptions = null)
     {
         parent::init($moduleOptions);
 
