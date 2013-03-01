@@ -3,11 +3,12 @@
 namespace SpeckAddress\Form;
 
 use SpeckAddress\Entity\Address as AddressEntity;
+use SpeckAddress\Options\ModuleOptions;
 use Zend\Stdlib\Hydrator\ClassMethods;
 
 class EditAddress extends Address
 {
-    public function init($moduleOptions = null)
+    public function init(ModuleOptions $moduleOptions = null)
     {
         parent::init($moduleOptions);
 

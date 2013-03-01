@@ -3,12 +3,13 @@
 namespace SpeckAddress\Form;
 
 use Zend\Form\Form;
+use SpeckAddress\Options\ModuleOptions;
 
 class Address extends Form
 {
     protected $addressService;
 
-    public function init($moduleOptions = null)
+    public function init(ModuleOptions $moduleOptions = null)
     {
         parent::__construct();
 
@@ -64,7 +65,7 @@ class Address extends Form
         ));
     }
 
-    public function getCountryOptions($moduleOptions = array())
+    public function getCountryOptions(ModuleOptions $moduleOptions = null)
     {
         $countries = $this->getAddressService()->getCountryList();
 
