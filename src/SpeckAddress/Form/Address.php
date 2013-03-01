@@ -3,15 +3,16 @@
 namespace SpeckAddress\Form;
 
 use Zend\Form\Form;
+use SpeckAddress\Options\ModuleOptions;
 
 class Address extends Form
 {
     protected $addressService;
+    protected $moduleOptions;
 
-    public function init($moduleOptions)
+
+    public function init()
     {
-        parent::__construct();
-
         $this->add(array(
             'name' => 'name',
             'type' => 'Zend\Form\Element\Text',
@@ -59,15 +60,16 @@ class Address extends Form
                 'label' => 'Country',
             ),
             'attributes' => array(
-                'options' => $this->getCountryOptions($moduleOptions),
+                'options' => $this->getCountryOptions(),
             ),
         ));
     }
 
-    public function getCountryOptions($moduleOptions = array())
+    public function getCountryOptions()
     {
         $countries = $this->getAddressService()->getCountryList();
 
+        $moduleOptions = $this->getModuleOptions();
         $weights = $moduleOptions->getWeightedCountryCodes();
         $spelling = $moduleOptions->getAlternateSpellings();
 
@@ -93,6 +95,24 @@ class Address extends Form
     public function setAddressService($addressService)
     {
         $this->addressService = $addressService;
+        return $this;
+    }
+
+    /**
+     * @return moduleOptions
+     */
+    public function getModuleOptions()
+    {
+        return $this->moduleOptions;
+    }
+
+    /**
+     * @param $moduleOptions
+     * @return self
+     */
+    public function setModuleOptions($moduleOptions)
+    {
+        $this->moduleOptions = $moduleOptions;
         return $this;
     }
 }
