@@ -16,27 +16,11 @@ class Module implements AutoloaderProviderInterface
                 'SpeckAddress\Form\AddressFilter' => false,
             ),
             'factories' => array(
-                'SpeckAddress\Form\Address' => function($sm) {
-                    $form = new Form\Address;
-                    $form->setAddressService($sm->get('SpeckAddress\Service\Address'));
+                'SpeckAddress\Form\Address'     => '\SpeckAddress\Form\AddressFactory',
 
-                    $options = $sm->get('SpeckAddress\Options\ModuleOptions');
-                    $form->setModuleOptions($options);
+                'SpeckAddress\Form\EditAddress' => '\SpeckAddress\Form\EditAddressFactory',
 
-                    return $form;
-                },
-
-                'SpeckAddress\Form\EditAddress' => function($sm) {
-                    $form = new Form\EditAddress;
-                    $form->setAddressService($sm->get('SpeckAddress\Service\Address'));
-
-                    $options = $sm->get('SpeckAddress\Options\ModuleOptions');
-                    $form->setModuleOptions($options);
-
-                    return $form;
-                },
-
-                'SpeckAddress\Service\Address' => function($sm) {
+                'SpeckAddress\Service\Address'  => function($sm) {
                     $service = new Service\Address;
                     $service->setAddressMapper($sm->get('SpeckAddress\Mapper\AddressMapper'));
                     $service->setOptions($sm->get('SpeckAddress\Options\ModuleOptions'));
