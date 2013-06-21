@@ -68,6 +68,11 @@ class Address implements EventManagerAwareInterface
         return $this->addressMapper->getCountryList();
     }
 
+    public function getProvinceList()
+    {
+        return $this->addressMapper->getProvinceList();
+    }
+
     public function getAddressMapper()
     {
         return $this->addressMapper;

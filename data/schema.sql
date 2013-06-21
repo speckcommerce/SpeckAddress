@@ -271,18 +271,15 @@ INSERT INTO `country_codes` (`country_code`, `country`) VALUES
 ('ZW', 'Zimbabwe');
 
 CREATE TABLE IF NOT EXISTS `country_province` (
-  `country`                  varchar(44)  DEFAULT NULL,
-  `country_province_code`    varchar(7)   DEFAULT NULL,
-  `province`                 varchar(78)  DEFAULT NULL,
+  `country_name`             varchar(44)  DEFAULT NULL,
+  `country_province_code`    varchar(7)   NOT NULL,
+  `province_name`            varchar(78)  NOT NULL,
   `province_alternate_names` varchar(186) DEFAULT NULL,
-  `country_code`             varchar(2)   DEFAULT NULL
+  `country_code`             varchar(2)   NOT NULL,
   PRIMARY KEY (`country_province_code`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-ALTER TABLE `country_province`
-  ADD CONSTRAINT `country_province_countrycode_fk` FOREIGN KEY (`country`) REFERENCES `country_codes` (`country_code`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-INSERT INTO `TABLE 4` (`country_name`, `country_province_code`, `province_name`, `province_alternate_names`, `country_code`) VALUES
+INSERT INTO `country_province` (`country_name`, `country_province_code`, `province_name`, `province_alternate_names`, `country_code`) VALUES
 ('Afghanistan', 'AF-BDS', 'Badakhshān', 'Badaẖšan', 'AF'),
 ('Afghanistan', 'AF-BGL', 'Baghlān', 'Baghlan, Baghlān, Baglan', 'AF'),
 ('Afghanistan', 'AF-BAL', 'Balkh', 'Balkh', 'AF'),
@@ -1224,7 +1221,7 @@ INSERT INTO `TABLE 4` (`country_name`, `country_province_code`, `province_name`,
 ('Czech Republic', 'CZ-512 ', 'Jablonec nad Nisou ', '', 'CZ'),
 ('Czech Republic', 'CZ-711 ', 'Jeseník ', '', 'CZ'),
 ('Czech Republic', 'CZ-612 ', 'Jihlava ', '', 'CZ');
-INSERT INTO `TABLE 4` (`country`, `country_province_code`, `province`, `province_alternates`, `country_code`) VALUES
+INSERT INTO `country_province` (`country_name`, `country_province_code`, `province_name`, `province_alternate_names`, `country_code`) VALUES
 ('Czech Republic', 'CZ-JC', 'Jihoceský kraj', 'Budějovický, Českobudějovický', 'CZ'),
 ('Czech Republic', 'CZ-JM', 'Jihomoravský kraj ', 'Brnenský', 'CZ'),
 ('Czech Republic', 'CZ-313 ', 'Jindřichův Hradec ', '', 'CZ'),
@@ -2209,7 +2206,7 @@ INSERT INTO `TABLE 4` (`country`, `country_province_code`, `province`, `province
 ('Italy', 'IT-SS', 'Sassari', '', 'IT'),
 ('Italy', 'IT-SV', 'Savona', '', 'IT'),
 ('Italy', 'IT-82', 'Sicilia', 'Sicile, Sicilia, Sizilien, Sicilie', 'IT');
-INSERT INTO `TABLE 4` (`country`, `country_province_code`, `province`, `province_alternates`, `country_code`) VALUES
+INSERT INTO `country_province` (`country_name`, `country_province_code`, `province_name`, `province_alternate_names`, `country_code`) VALUES
 ('Italy', 'IT-SI', 'Siena', '', 'IT'),
 ('Italy', 'IT-SR', 'Siracusa', '', 'IT'),
 ('Italy', 'IT-SO', 'Sondrio', '', 'IT'),
@@ -3085,7 +3082,7 @@ INSERT INTO `TABLE 4` (`country`, `country_province_code`, `province`, `province
 ('Morocco', 'MA-OUJ', 'Oujda*', '', 'MA'),
 ('Morocco', 'MA-RAB', 'Rabat', '', 'MA'),
 ('Morocco', 'MA-07', 'Rabat-Salé-Zemmour-Zaer', '', 'MA');
-INSERT INTO `TABLE 4` (`country`, `country_province_code`, `province`, `province_alternates`, `country_code`) VALUES
+INSERT INTO `country_province` (`country_name`, `country_province_code`, `province_name`, `province_alternate_names`, `country_code`) VALUES
 ('Morocco', 'MA-SAF', 'Safi', '', 'MA'),
 ('Morocco', 'MA-SEF', 'Sefrou', '', 'MA'),
 ('Morocco', 'MA-SET', 'Settat', '', 'MA'),
@@ -3694,10 +3691,8 @@ INSERT INTO `TABLE 4` (`country`, `country_province_code`, `province`, `province
 ('Rwanda', 'RW-05', 'Sud', '', 'RW'),
 ('Rwanda', 'RW-01', 'Ville de Kigali', '', 'RW'),
 ('Saint Helena, Ascension and Tristan Da Cunha', 'SH-AC', 'Ascension', '', 'SH'),
-('Saint Helena, Ascension and Tristan Da Cunha', 'SH-AC', 'Ascension', '', 'SH'),
 ('Saint Helena, Ascension and Tristan Da Cunha', 'SH-HL', 'Saint Helena', '', 'SH'),
 ('Saint Helena, Ascension and Tristan Da Cunha', 'SH-SH', 'Saint Helena', '', 'SH'),
-('Saint Helena, Ascension and Tristan Da Cunha', 'SH-TA', 'Tristan da Cunha', '', 'SH'),
 ('Saint Helena, Ascension and Tristan Da Cunha', 'SH-TA', 'Tristan da Cunha', '', 'SH'),
 ('Saint Kitts And Nevis', 'KN-01', 'Christ Church Nichola Town', '', 'KN'),
 ('Saint Kitts And Nevis', 'KN-N', 'Nevis', '', 'KN'),
@@ -4012,7 +4007,7 @@ INSERT INTO `TABLE 4` (`country`, `country_province_code`, `province`, `province
 ('Slovenia', 'SI-202', 'Središče ob Dravi', '', 'SI'),
 ('Slovenia', 'SI-115', 'Starše', '', 'SI'),
 ('Slovenia', 'SI-203', 'Straža', '', 'SI');
-INSERT INTO `TABLE 4` (`country`, `country_province_code`, `province`, `province_alternates`, `country_code`) VALUES
+INSERT INTO `country_province` (`country_name`, `country_province_code`, `province_name`, `province_alternate_names`, `country_code`) VALUES
 ('Slovenia', 'SI-181', 'Sveta Ana', '', 'SI'),
 ('Slovenia', 'SI-204', 'Sveta Trojica v Slovenskih Goricah', '', 'SI'),
 ('Slovenia', 'SI-182', 'Sveti Andraž v Slovenskih goricah', '', 'SI'),
@@ -4943,7 +4938,7 @@ INSERT INTO `TABLE 4` (`country`, `country_province_code`, `province`, `province
 ('United Kingdom', 'GB-WIL', 'Wiltshire', '', 'GB'),
 ('United Kingdom', 'GB-WNM', 'Windsor and Maidenhead', '', 'GB'),
 ('United Kingdom', 'GB-WRL', 'Wirral', '', 'GB');
-INSERT INTO `TABLE 4` (`country`, `country_province_code`, `province`, `province_alternates`, `country_code`) VALUES
+INSERT INTO `country_province` (`country_name`, `country_province_code`, `province_name`, `province_alternate_names`, `country_code`) VALUES
 ('United Kingdom', 'GB-WOK', 'Wokingham', '', 'GB'),
 ('United Kingdom', 'GB-WLV', 'Wolverhampton', '', 'GB'),
 ('United Kingdom', 'GB-WOR', 'Worcestershire', '', 'GB'),

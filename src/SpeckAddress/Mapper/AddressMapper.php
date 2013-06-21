@@ -85,4 +85,13 @@ class AddressMapper extends AbstractDbMapper
         $resultSet = $this->select($select, new ArrayObject, new ArraySerializable);
         return $resultSet;
     }
+
+    public function getProvinceList()
+    {
+        $select = new Select;
+        $select->from('country_province');
+
+        $resultSet = $this->select($select, new ArrayObject, new ArraySerializable);
+        return $resultSet;
+    }
 }
