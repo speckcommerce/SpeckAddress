@@ -36,9 +36,12 @@ class Address extends Form
 
         $this->add(array(
             'name' => 'province',
-            'type' => 'Zend\Form\Element\Text',
+            'type' => 'Zend\Form\Element\Select',
             'options' => array(
                 'label' => 'State / Province'
+            ),
+            'attributes' => array(
+                'options' => array(),
             ),
         ));
 

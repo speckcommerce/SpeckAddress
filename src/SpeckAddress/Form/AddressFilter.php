@@ -53,34 +53,6 @@ class AddressFilter extends InputFilter
         ));
 
         $this->add(array(
-            'name' => 'province',
-            'required' => true,
-            'valdiators' => array(
-                array(
-                    'name' => 'StringLength',
-                    'options' => array(
-                        'min' => 2,
-                        'max' => 255
-                    ),
-                ),
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'postal_code',
-            'required' => true,
-            'validators' => array(
-                array(
-                    'name' => 'StringLength',
-                    'options' => array(
-                        'min' => 3,
-                        'max' => 255
-                    ),
-                ),
-            ),
-        ));
-
-        $this->add(array(
             'name' => 'country',
             'required' => true,
             'validators' => array(
@@ -101,6 +73,36 @@ class AddressFilter extends InputFilter
                 ),
             ),
         ));
+
+
+        $this->add(array(
+            'name' => 'province',
+            'required' => true,
+            'validators' => array(
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'min' => 2,
+                        'max' => 255
+                    ),
+                ),
+            ),
+        ));
+
+
+        $this->add(array(
+            'name' => 'postal_code',
+            'required' => true,
+            'validators' => array(
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'min' => 3,
+                        'max' => 255
+                    ),
+                ),
+            ),
+        ));
     }
 
     public function getAdapter()
@@ -111,6 +113,17 @@ class AddressFilter extends InputFilter
     public function setAdapter($adapter)
     {
         $this->adapter = $adapter;
+        return $this;
+    }
+
+    public function getCountryProvinces()
+    {
+        return $this->countryProvinces;
+    }
+
+    public function setCountryProvinces($countryProvinces)
+    {
+        $this->countryProvinces = $countryProvinces;
         return $this;
     }
 }
