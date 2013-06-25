@@ -1,3 +1,4 @@
+<? $this->headScript()->appendFile('/js/country-provinces.js'); ?>
 <?php
 
 $form = $this->form;
@@ -29,4 +30,13 @@ $form->setAttribute('method', 'post');
         'alternative-spellings-attr': 'alt-spelling'
     });
 })();
+
+$(document).ready(function(){
+    (function($) {
+        province = $("select[name=province]");
+        country  = $("select[name=country]");
+        countryProvinces(province, country);
+    }) (jQuery)
+});
+
 </script>
