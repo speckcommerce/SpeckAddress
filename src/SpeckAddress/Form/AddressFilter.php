@@ -74,7 +74,6 @@ class AddressFilter extends InputFilter
             ),
         ));
 
-
         $this->add(array(
             'name' => 'province',
             'required' => true,
@@ -82,17 +81,24 @@ class AddressFilter extends InputFilter
                 array(
                     'name' => 'StringLength',
                     'options' => array(
-                        'min' => 2,
-                        'max' => 255
+                        'min' => 5,
+                        'max' => 6
+                    ),
+                ),
+                array(
+                    'name' => 'DbRecordExists',
+                    'options' => array(
+                        'table' => 'country_province',
+                        'field' => 'country_province_code',
+                        'adapter' => $this->getAdapter()
                     ),
                 ),
             ),
         ));
 
-
         $this->add(array(
             'name' => 'postal_code',
-            'required' => true,
+            'required' => false,
             'validators' => array(
                 array(
                     'name' => 'StringLength',
@@ -104,6 +110,7 @@ class AddressFilter extends InputFilter
             ),
         ));
     }
+
 
     public function getAdapter()
     {

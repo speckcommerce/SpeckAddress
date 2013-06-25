@@ -43,38 +43,36 @@ return array(
                         ),
                     ),
                     'edit' => array(
-                        'type' => 'Literal',
+                        'type' => 'Segment',
                         'options' => array(
-                            'route' => '/edit',
+                            'route' => '/edit/:id',
                             'defaults' => array(
                                 'controller' => 'speckaddress',
                                 'action'     => 'edit',
                             ),
                         ),
                         'may_terminate' => false,
-                        'child_routes' => array(
-                            'query' => array(
-                                'type' => 'Query',
-                            ),
-                        ),
                     ),
                     'delete' => array(
-                        'type' => 'Literal',
+                        'type' => 'Segment',
                         'options' => array(
-                            'route' => '/delete',
+                            'route' => '/delete/:id',
                             'defaults' => array(
                                 'controller' => 'speckaddress',
                                 'action'     => 'delete',
                             ),
                         ),
                         'may_terminate' => false,
-                        'child_routes' => array(
-                            'query' => array(
-                                'type' => 'Query',
-                            ),
-                        ),
                     ),
                 ),
+            ),
+        ),
+    ),
+
+    'asset_manager' => array(
+        'resolver_configs' => array(
+            'paths' => array(
+                __DIR__ . '/../public',
             ),
         ),
     ),
