@@ -51,7 +51,7 @@ class AddressController extends AbstractActionController
 
     public function editAction()
     {
-        $addressId = $this->getRequest()->getQuery()->get('id');
+        $addressId = $this->params('id');
         $form = $this->getEditForm($addressId);
 
         $prg = $this->prg('/address/edit?id=' . $addressId, true);
@@ -75,7 +75,7 @@ class AddressController extends AbstractActionController
 
     public function deleteAction()
     {
-        $addressId = $this->getRequest()->getQuery()->get('id');
+        $addressId = $this->params('id');
 
         $this->getAddressService()->delete($addressId);
         $this->flashMessenger()->setNamespace('addr-delete')->addMessage(true);

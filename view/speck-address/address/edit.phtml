@@ -1,3 +1,4 @@
+<? $this->headScript()->appendFile('/js/country-provinces.js'); ?>
 <?php
 
 $form = $this->form;
@@ -35,6 +36,11 @@ $form->setAttribute('method', 'post');
 
 $(document).ready(function(){
     var i = $('select[name="country"]').children('option[selected="selected"]');
+
+    //init countryProvince
+    province = $("select[name=province]");
+    country  = $("select[name=country]");
+    countryProvinces(province, country);
 });
 
 </script>

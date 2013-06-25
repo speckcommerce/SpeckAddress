@@ -35,6 +35,17 @@ class Address extends Form
         ));
 
         $this->add(array(
+            'name' => 'country',
+            'type' => 'Zend\Form\Element\Select',
+            'options' => array(
+                'label' => 'Country',
+            ),
+            'attributes' => array(
+                'options' => array(),
+            ),
+        ));
+
+        $this->add(array(
             'name' => 'province',
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
@@ -50,16 +61,6 @@ class Address extends Form
             'type' => 'Zend\Form\Element\Text',
             'options' => array(
                 'label' => 'Postal Code',
-            ),
-        ));
-        $this->add(array(
-            'name' => 'country',
-            'type' => 'Zend\Form\Element\Select',
-            'options' => array(
-                'label' => 'Country',
-            ),
-            'attributes' => array(
-                'options' => array(),
             ),
         ));
     }
