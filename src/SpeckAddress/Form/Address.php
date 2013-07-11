@@ -4,8 +4,9 @@ namespace SpeckAddress\Form;
 
 use Zend\Form\Form;
 use SpeckAddress\Options\ModuleOptions;
+use SpeckAddress\Form\AddressFormInterface;
 
-class Address extends Form
+class Address extends Form implements AddressFormInterface
 {
     public function __construct()
     {

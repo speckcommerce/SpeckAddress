@@ -2,7 +2,9 @@
 
 namespace SpeckAddress\Entity;
 
-class Address
+use SpeckAddress\Entity\AddressInterface;
+
+class Address implements AddressInterface
 {
     protected $addressId;
     protected $name;

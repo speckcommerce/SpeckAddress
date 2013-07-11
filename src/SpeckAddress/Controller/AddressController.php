@@ -54,7 +54,7 @@ class AddressController extends AbstractActionController
         $addressId = $this->params('id');
         $form = $this->getEditForm($addressId);
 
-        $prg = $this->prg('/address/edit?id=' . $addressId, true);
+        $prg = $this->prg('/address/edit/' . $addressId, true);
 
         if ($prg instanceof Response) {
             return $this->redirect()->toRoute('address/edit/query', array('id' => $addressId));
