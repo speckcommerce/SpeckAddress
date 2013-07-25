@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'service_manager' => array(
         'aliases' => array(
@@ -15,54 +16,16 @@ return array(
     'router' => array(
         'routes' => array(
             'address' => array(
-                'type'    => 'Literal',
+                'type'    => 'Segment',
                 'options' => array(
-                    // Change this to something specific to your module
-                    'route'    => '/address',
+                    'route'    => '/address[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[[a-zA-Z][a-zA-Z0-9_-]*]*',
+                        'id'     => '[0-9]+'
+                    ),
                     'defaults' => array(
-                        // Change this value to reflect the namespace in which
-                        // the controllers for your module are found
                         'controller'    => 'speckaddress',
                         'action'        => 'index',
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    // This route is a sane default when developing a module;
-                    // as you solidify the routes for your module, however,
-                    // you may want to remove it and replace it with more
-                    // specific routes.
-                    'add' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/add',
-                            'defaults' => array(
-                                'controller' => 'speckaddress',
-                                'action'     => 'add'
-                            ),
-                        ),
-                    ),
-                    'edit' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/edit/:id',
-                            'defaults' => array(
-                                'controller' => 'speckaddress',
-                                'action'     => 'edit',
-                            ),
-                        ),
-                        'may_terminate' => false,
-                    ),
-                    'delete' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/delete/:id',
-                            'defaults' => array(
-                                'controller' => 'speckaddress',
-                                'action'     => 'delete',
-                            ),
-                        ),
-                        'may_terminate' => false,
                     ),
                 ),
             ),
