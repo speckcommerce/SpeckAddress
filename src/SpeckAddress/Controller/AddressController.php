@@ -57,7 +57,25 @@ class AddressController extends AbstractActionController
         $addressId = $this->params('id');
         $form = $this->getEditForm($addressId);
 
-        return ['form' => $addressId];
+        $prg = $this->prg('/address/edit/' . $addressId, true);
+
+        if ($prg instanceof Response) {
+            return $this->redirect()->toRoute('address/edit/', array('id' => $addressId));
+        } else if ($prg === false) {
+            return array('form' => $form);
+        }
+
+        $form->setData($prg);
+
+        if (!$form->isValid()) {
+            return array('form' => $form);
+        }
+
+        $filteredData = $form->getData($prg);
+
+        $this->getAddressService()->update($filteredData);
+        $this->flashMessenger()->setNamespace('addr-edit')->addMessage(true);
+        return $this->redirect()->toRoute('address');
     }
 
     public function deleteAction()
@@ -76,13 +94,13 @@ class AddressController extends AbstractActionController
         return $form;
     }
 
-    public function getEditForm()
+    public function getEditForm($id)
     {
         $form = $this->getServiceLocator()->get('SpeckAddress\Form\EditAddress');
         $form->setInputFilter($this->getServiceLocator()->get('SpeckAddress\Form\AddressFilter'));
 
-        //$addressService = $this->getAddressService();
-        //$form->setAddress($addressService->findById($id));
+        $addressService = $this->getAddressService();
+        $form->setAddress($addressService->findById($id));
 
         return $form;
     }

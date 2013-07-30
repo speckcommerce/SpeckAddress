@@ -10,7 +10,7 @@ class EditAddress extends Address
 {
     public function __construct()
     {
-        parent::init();
+        parent::__construct();
         $this->add(array(
             'name' => 'address_id',
             'attributes' => array(
