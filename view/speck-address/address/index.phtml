@@ -1,11 +1,3 @@
-<?php
-
-$editRoute = $this->editRoute ?: 'address/edit';
-$deleteRoute = $this->deleteRoute ?: 'address/delete';
-$addRoute = $this->addRoute ?: 'address/add';
-
-?>
-
 <?php if ($this->statuses['addr-add'] === true) : ?>
 <div class="alert alert-success">Successfully added address.</div>
 <?php elseif ($this->statuses['addr-add'] === false) : ?>
@@ -43,9 +35,9 @@ $imgurl = "http://maps.googleapis.com/maps/api/staticmap?" . $params;
 <?=$address->getStreetAddress()?><br />
 <?=$address->getCity()?>, <?=$address->getProvince()?> <?=$address->getPostalCode()?><br />
 <?=$address->getCountry()?></p>
-<?php $editUrl = $this->url($editRoute, array('id' => $address->getAddressId())); ?>
-<?php $deleteUrl = $this->url($deleteRoute, array('id' => $address->getAddressId())); ?>
+<?php $editUrl = $this->url('address', ['action'=>'edit', 'id' => $address->getAddressId()]); ?>
+<?php $deleteUrl = $this->url('address', ['action'=>'delete', 'id' => $address->getAddressId()]); ?>
 <a href="<?=$editUrl?>">Edit</a> &middot; <a href="<?=$deleteUrl?>">Delete</a>
 <p style="clear: both"></p>
 <?php endforeach; ?>
-<a href="<?=$this->url($addRoute)?>">Add Address</a>
+<a href="<?=$this->url('address', ['action'=>'add'])?>">Add Address</a>

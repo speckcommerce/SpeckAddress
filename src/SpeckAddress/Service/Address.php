@@ -4,6 +4,7 @@ namespace SpeckAddress\Service;
 
 use SpeckAddress\Entity\Address as AddressEntity;
 use SpeckAddress\Service\AddressEvent;
+use SpeckAddress\Mapper\AddressMapper;
 
 use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerInterface;
@@ -13,6 +14,8 @@ use Zend\Stdlib\Hydrator\ClassMethods;
 class Address implements EventManagerAwareInterface
 {
     protected $addressMapper;
+    // added property
+    protected $eventManager;
     protected $options;
 
     public function __construct()
@@ -22,17 +25,19 @@ class Address implements EventManagerAwareInterface
 
     public function findById($id)
     {
-        return $this->addressMapper->findById($id);
+        // used method instead of property
+        return $this->getAddressMapper()->findById($id);
     }
 
+    /**
+     * @param $address
+     * @return AddressEntity
+     */
     public function create($address)
     {
-        if (is_array($address)) {
-            $hydrator = new ClassMethods;
-            $address = $hydrator->hydrate($address, new AddressEntity);
-        }
+        $hydrated = $this->hydrate($address);
 
-        $address = $this->addressMapper->persist($address);
+        $address = $this->getAddressMapper()->persist($hydrated);
 
         $events = $this->getEventManager();
         $events->trigger(AddressEvent::EVENT_ADD_ADDRESS_POST, $this, array('address' => $address));
@@ -41,12 +46,9 @@ class Address implements EventManagerAwareInterface
 
     public function update($address)
     {
-        if (is_array($address)) {
-            $hydrator = new ClassMethods;
-            $address = $hydrator->hydrate($address, new AddressEntity);
-        }
+        $hydrated = $this->hydrate($address);
 
-        $this->addressMapper->persist($address);
+        $this->getAddressMapper()->persist($hydrated);
     }
 
     public function delete($address)
@@ -55,24 +57,40 @@ class Address implements EventManagerAwareInterface
             $address = $address->getAddressId();
         }
 
-        $this->addressMapper->deleteAddress($address);
+        $this->getAddressMapper()->deleteAddress($address);
+    }
+
+    /**
+     * @param $address
+     * @return AddressEntity
+     */
+    protected function hydrate($address)
+    {
+        if (is_array($address)) {
+            $hydrator = new ClassMethods;
+            $address = $hydrator->hydrate($address, new AddressEntity);
+        }
+        return $address;
     }
 
     public function getAddresses()
     {
-        return $this->addressMapper->getAddresses();
+        return $this->getAddressMapper()->getAddresses();
     }
 
     public function getCountryList()
     {
-        return $this->addressMapper->getCountryList();
+        return $this->getAddressMapper()->getCountryList();
     }
 
     public function getProvinceList()
     {
-        return $this->addressMapper->getProvinceList();
+        return $this->getAddressMapper()->getProvinceList();
     }
 
+    /**
+     * @return AddressMapper
+     */
     public function getAddressMapper()
     {
         return $this->addressMapper;
@@ -95,6 +113,9 @@ class Address implements EventManagerAwareInterface
         return $this;
     }
 
+    /**
+     * @return EventManagerInterface
+     */
     public function getEventManager()
     {
         return $this->eventManager;

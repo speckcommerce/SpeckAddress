@@ -3349,6 +3349,7 @@ INSERT INTO `country_province` (`country_name`, `country_province_code`, `provin
 ('Panama', 'PA-5', 'Darién', '', 'PA'),
 ('Panama', 'PA-EM', 'Emberá', '', 'PA'),
 ('Panama', 'PA-6', 'Herrera', '', 'PA'),
+('Panama', 'PA-KY', 'Kuna Yala', '', 'PA'),
 ('Panama', 'PA-7', 'Los Santos', '', 'PA'),
 ('Panama', 'PA-NB', 'Ngöbe-Buglé', '', 'PA'),
 ('Panama', 'PA-8', 'Panamá', '', 'PA'),
@@ -5181,7 +5182,4 @@ INSERT INTO `country_province` (`country_name`, `country_province_code`, `provin
 ('Zimbabwe', 'ZW-MV', 'Masvingo', '', 'ZW'),
 ('Zimbabwe', 'ZW-MN', 'Matabeleland North', '', 'ZW'),
 ('Zimbabwe', 'ZW-MS', 'Matabeleland South', '', 'ZW'),
-('Zimbabwe', 'ZW-MI', 'Midlands', '', 'ZW'),
-('', 'PA-KY', 'Kuna Yala', '', 'PA');
-
-
+('Zimbabwe', 'ZW-MI', 'Midlands', '', 'ZW');
