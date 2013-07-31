@@ -1,46 +1,44 @@
 <? $this->headScript()->appendFile('/js/country-provinces.js'); ?>
 <?php
-
 $form = $this->form;
 $form->prepare();
 $form->setAttribute('method', 'post');
-
 ?>
 <?= $this->form()->openTag($form) ?>
 
 <?php foreach ($form->getElements() as $el) : ?>
-<?php if ($el->getAttribute('name') === 'country') : ?>
-    <?php $el->setAttribute('class', 'autocomplete'); ?>
-    <?php echo $this->formLabel($el) . $this->speckSelect($el) . $this->formElementErrors($el); ?>
-<?php elseif ($el->getName() == 'address_id') : ?>
-    <?php echo $this->formElement($el); ?>
-<?php else: ?>
-    <?php echo $this->formLabel($el) . $this->formElement($el) . $this->formElementErrors($el); ?>
-<?php endif; ?>
+    <?php if ($el->getAttribute('name') === 'country') : ?>
+        <?php $el->setAttribute('class', 'autocomplete'); ?>
+        <?php echo $this->formLabel($el) . $this->speckSelect($el) . $this->formElementErrors($el); ?>
+    <?php elseif ($el->getName() == 'address_id') : ?>
+        <?php echo $this->formElement($el); ?>
+    <?php else: ?>
+        <?php echo $this->formLabel($el) . $this->formElement($el) . $this->formElementErrors($el); ?>
+    <?php endif; ?>
 <?php endforeach; ?>
 <br />
 <input type="submit" value="Submit" />
 <?= $this->form()->closeTag() ?>
 
 <script type="text/javascript">
-(function() {
-    var jQuery = $;
-    $('.autocomplete').selectToAutocomplete({
-        'relevancy-sorting': true,
-        'relevancy-sorting-booster-attr': 'weight',
-        'alternative-spellings': true,
-        'alternative-spellings-attr': 'alt-spelling'
+    (function() {
+        var jQuery = $;
+        $('.autocomplete').selectToAutocomplete({
+            'relevancy-sorting': true,
+            'relevancy-sorting-booster-attr': 'weight',
+            'alternative-spellings': true,
+            'alternative-spellings-attr': 'alt-spelling'
+        });
+
+    })();
+
+    $(document).ready(function(){
+        var i = $('select[name="country"]').children('option[selected="selected"]');
+
+        //init countryProvince
+        province = $("select[name=province]");
+        country  = $("select[name=country]");
+        countryProvinces(province, country);
     });
-
-})();
-
-$(document).ready(function(){
-    var i = $('select[name="country"]').children('option[selected="selected"]');
-
-    //init countryProvince
-    province = $("select[name=province]");
-    country  = $("select[name=country]");
-    countryProvinces(province, country);
-});
 
 </script>

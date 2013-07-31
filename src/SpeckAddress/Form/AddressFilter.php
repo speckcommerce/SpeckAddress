@@ -7,12 +7,20 @@ use Zend\InputFilter\InputFilter;
 class AddressFilter extends InputFilter
 {
     protected $adapter;
+    // filters added
+    protected $filter = array(
+        array('name' => 'StripTags'),
+        array('name' => 'StringTrim'),
+    );
+    // was set dynamically
+    protected $countryProvinces;
 
     public function init()
     {
         $this->add(array(
             'name' => 'name',
             'required' => true,
+            'filters' => $this->filter,
             'validators' => array(
                 array(
                     'name' => 'StringLength',
@@ -27,6 +35,7 @@ class AddressFilter extends InputFilter
         $this->add(array(
             'name' => 'street_address',
             'required' => true,
+            'filters' => $this->filter,
             'validators' => array(
                 array(
                     'name' => 'StringLength',
@@ -41,6 +50,7 @@ class AddressFilter extends InputFilter
         $this->add(array(
             'name' => 'city',
             'required' => true,
+            'filters' => $this->filter,
             'validators' => array(
                 array(
                     'name' => 'StringLength',
@@ -99,6 +109,7 @@ class AddressFilter extends InputFilter
         $this->add(array(
             'name' => 'postal_code',
             'required' => false,
+            'filters' => $this->filter,
             'validators' => array(
                 array(
                     'name' => 'StringLength',

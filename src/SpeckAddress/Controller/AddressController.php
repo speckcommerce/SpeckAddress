@@ -19,7 +19,7 @@ class AddressController extends AbstractActionController
     public function addAction()
     {
         $form = $this->getAddForm();
-        $prg = $this->prg('address/add');
+        $prg = $this->prg('/address/add', true);
 
         $statuses = array();
         $namespaces = array('addr-add', 'addr-edit', 'addr-delete');
@@ -44,7 +44,10 @@ class AddressController extends AbstractActionController
             return array('form' => $form, 'statuses' => $statuses);
         }
 
-        $this->getAddressService()->create($prg);
+        // returns filtered input
+        $filteredData = $form->getData();
+
+        $this->getAddressService()->create($filteredData);
         $this->flashMessenger()->setNamespace('addr-add')->addMessage(true);
         return $this->redirect()->toRoute('address');
     }
@@ -54,10 +57,10 @@ class AddressController extends AbstractActionController
         $addressId = $this->params('id');
         $form = $this->getEditForm($addressId);
 
-        $prg = $this->prg('/address/edit?id=' . $addressId, true);
+        $prg = $this->prg('/address/edit/' . $addressId, true);
 
         if ($prg instanceof Response) {
-            return $this->redirect()->toRoute('address/edit/query', array('id' => $addressId));
+            return $this->redirect()->toRoute('address/edit/', array('id' => $addressId));
         } else if ($prg === false) {
             return array('form' => $form);
         }
@@ -68,7 +71,9 @@ class AddressController extends AbstractActionController
             return array('form' => $form);
         }
 
-        $this->getAddressService()->update($prg);
+        $filteredData = $form->getData($prg);
+
+        $this->getAddressService()->update($filteredData);
         $this->flashMessenger()->setNamespace('addr-edit')->addMessage(true);
         return $this->redirect()->toRoute('address');
     }
