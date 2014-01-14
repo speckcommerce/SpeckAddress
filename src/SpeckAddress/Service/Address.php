@@ -22,7 +22,7 @@ class Address implements EventManagerAwareInterface
 
     public function findById($id)
     {
-        return $this->addressMapper->findById($id);
+        return $this->getAddressMapper()->findById($id);
     }
 
     public function create($address)
@@ -32,7 +32,7 @@ class Address implements EventManagerAwareInterface
             $address = $hydrator->hydrate($address, new AddressEntity);
         }
 
-        $address = $this->addressMapper->persist($address);
+        $address = $this->getAddressMapper()->persist($address);
 
         $events = $this->getEventManager();
         $events->trigger(AddressEvent::EVENT_ADD_ADDRESS_POST, $this, array('address' => $address));
@@ -46,7 +46,7 @@ class Address implements EventManagerAwareInterface
             $address = $hydrator->hydrate($address, new AddressEntity);
         }
 
-        $this->addressMapper->persist($address);
+        $this->getAddressMapper()->persist($address);
     }
 
     public function delete($address)
@@ -55,22 +55,22 @@ class Address implements EventManagerAwareInterface
             $address = $address->getAddressId();
         }
 
-        $this->addressMapper->deleteAddress($address);
+        $this->getAddressMapper()->deleteAddress($address);
     }
 
     public function getAddresses()
     {
-        return $this->addressMapper->getAddresses();
+        return $this->getAddressMapper()->getAddresses();
     }
 
     public function getCountryList()
     {
-        return $this->addressMapper->getCountryList();
+        return $this->getAddressMapper()->getCountryList();
     }
 
     public function getProvinceList()
     {
-        return $this->addressMapper->getProvinceList();
+        return $this->getAddressMapper()->getProvinceList();
     }
 
     public function getAddressMapper()
