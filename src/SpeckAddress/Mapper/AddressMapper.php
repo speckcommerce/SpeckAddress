@@ -80,7 +80,7 @@ class AddressMapper extends AbstractDbMapper
     public function getCountryList()
     {
         $select = new Select;
-        $select->from('country_codes');
+        $select->from('country_codes')->order(array('country' => 'ASC'));
 
         $resultSet = $this->select($select, new ArrayObject, new ArraySerializable);
         return $resultSet;
@@ -89,7 +89,7 @@ class AddressMapper extends AbstractDbMapper
     public function getProvinceList()
     {
         $select = new Select;
-        $select->from('country_province');
+        $select->from('country_province')->order(array('country_name' => 'ASC', 'province_name' => 'ASC'));
 
         $resultSet = $this->select($select, new ArrayObject, new ArraySerializable);
         return $resultSet;
