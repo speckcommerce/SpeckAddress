@@ -4,6 +4,7 @@ namespace SpeckAddress\Form;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use SpeckAddress\Form\AddressFormInterface;
 
 class AddressFactory implements FactoryInterface
 {
@@ -18,7 +19,7 @@ class AddressFactory implements FactoryInterface
         return new Address;
     }
 
-    public function configure(Address $form, ServiceLocatorInterface $sl)
+    public function configure(AddressFormInterface $form, ServiceLocatorInterface $sl)
     {
         $options = $sl->get('SpeckAddress\Options\ModuleOptions');
         $service = $sl->get('SpeckAddress\Service\Address');

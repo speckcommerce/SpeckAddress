@@ -10,10 +10,14 @@ class Module implements AutoloaderProviderInterface
     public function getServiceConfig()
     {
         return array(
+            'invokables' => array(
+                'speckaddress_entity_prototype' => 'SpeckAddress\Entity\Address',
+            ),
             'shared' => array(
                 'SpeckAddress\Form\Address'       => false,
                 'SpeckAddress\Form\EditAddress'   => false,
                 'SpeckAddress\Form\AddressFilter' => false,
+                'speckaddress_entity_prototype'   => false,
             ),
             'factories' => array(
                 'SpeckAddress\Form\Address'     => '\SpeckAddress\Form\AddressFactory',
@@ -24,6 +28,7 @@ class Module implements AutoloaderProviderInterface
                     $service = new Service\Address;
                     $service->setAddressMapper($sm->get('SpeckAddress\Mapper\AddressMapper'));
                     $service->setOptions($sm->get('SpeckAddress\Options\ModuleOptions'));
+                    $service->setAddressPrototype($sm->get('speckaddress_entity_prototype'));
 
                     return $service;
                 },
@@ -37,6 +42,7 @@ class Module implements AutoloaderProviderInterface
                 'SpeckAddress\Mapper\AddressMapper' => function($sm) {
                     $mapper = new Mapper\AddressMapper;
                     $mapper->setDbAdapter($sm->get('speckaddress_db_adapter'));
+                    $mapper->setEntityPrototype($sm->get('speckaddress_entity_prototype'));
                     return $mapper;
                 },
 

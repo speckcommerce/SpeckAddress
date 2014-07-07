@@ -4,6 +4,7 @@ namespace SpeckAddress\Mapper;
 
 use ArrayObject;
 
+use SpeckAddress\Entity\AddressInterface;
 use SpeckAddress\Entity\Address;
 
 use Zend\Db\Sql\Delete;
@@ -19,8 +20,7 @@ class AddressMapper extends AbstractDbMapper
 {
     public function __construct()
     {
-        // TODO set up entity prototype and hydrator
-        $this->setEntityPrototype(new Address);
+        // TODO set up hydrator
         $this->setHydrator(new ClassMethods);
     }
 
@@ -45,7 +45,7 @@ class AddressMapper extends AbstractDbMapper
         return $resultSet;
     }
 
-    public function persist(Address $address)
+    public function persist(AddressInterface $address)
     {
         if ($address->getAddressId() > 0) {
             $where = new Where;

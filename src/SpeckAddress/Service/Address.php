@@ -3,6 +3,7 @@
 namespace SpeckAddress\Service;
 
 use SpeckAddress\Entity\Address as AddressEntity;
+use SpeckAddress\Entity\AddressInterface;
 use SpeckAddress\Service\AddressEvent;
 
 use Zend\EventManager\EventManager;
@@ -14,6 +15,7 @@ class Address implements EventManagerAwareInterface
 {
     protected $addressMapper;
     protected $options;
+    protected $addressPrototype;
 
     public function __construct()
     {
@@ -29,7 +31,7 @@ class Address implements EventManagerAwareInterface
     {
         if (is_array($address)) {
             $hydrator = new ClassMethods;
-            $address = $hydrator->hydrate($address, new AddressEntity);
+            $address = $hydrator->hydrate($address, $this->createAddress());
         }
 
         $address = $this->getAddressMapper()->persist($address);
@@ -43,7 +45,7 @@ class Address implements EventManagerAwareInterface
     {
         if (is_array($address)) {
             $hydrator = new ClassMethods;
-            $address = $hydrator->hydrate($address, new AddressEntity);
+            $address = $hydrator->hydrate($address, $this->createAddress());
         }
 
         $this->getAddressMapper()->persist($address);
@@ -51,7 +53,7 @@ class Address implements EventManagerAwareInterface
 
     public function delete($address)
     {
-        if ($address instanceof AddressEntity) {
+        if ($address instanceof AddressInterface) {
             $address = $address->getAddressId();
         }
 
@@ -111,6 +113,17 @@ class Address implements EventManagerAwareInterface
         $eventManager->setEventClass('SpeckAddress\Service\AddressEvent');
 
         $this->eventManager = $eventManager;
+        return $this;
+    }
+
+    public function createAddress()
+    {
+        return clone $this->addressPrototype;
+    }
+
+    public function setAddressPrototype($prototype)
+    {
+        $this->addressPrototype = $prototype;
         return $this;
     }
 }
