@@ -92,7 +92,7 @@ class AddressFactory implements FactoryInterface
         $countryOptions[""] = "";
         foreach ($countries as $c) {
             $countryOptions[] = array(
-                'label' => utf8_encode($c['country']),
+                'label' => $c['country'],
                 'value' => $c['country_code'],
                 'weight' => isset($weights[$c['country_code']]) ? $weights[$c['country_code']] : 1,
                 'alt-spelling' => isset($spelling[$c['country_code']]) ? $spelling[$c['country_code']] : '',
